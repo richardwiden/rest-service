@@ -1,4 +1,8 @@
-[![CircleCI](https://circleci.com/gh/richardwiden/rest-service/tree/master.svg?style=svg)](https://circleci.com/gh/richardwiden/rest-service/tree/master)
+
+master:[![CircleCI](https://circleci.com/gh/richardwiden/rest-service/tree/master.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/richardwiden/rest-service/tree/master)
+dev:[![CircleCI](https://circleci.com/gh/richardwiden/rest-service/tree/dev.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/richardwiden/rest-service/tree/dev)
+
+
 
 This is mainly supposed to be starting point for a rest-service and either and android app or similar online webservice
 
