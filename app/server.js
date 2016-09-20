@@ -27,7 +27,6 @@ server.use(restify.bodyParser());
 auth.setupRoutes(server, auth.authorizer);
 
 let routes = require('./routes/')(server, auth.authorizer);
-
 mongoose.connect(config.db.uri, function (err, info) {
     if (err) return log.error(err);
     log.info(info);
