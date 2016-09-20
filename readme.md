@@ -16,8 +16,8 @@ POST token to http://host:port/auth/token/google to login/create user
 
 `docker-compose up`
 
-* Set `AUTH_GOOGLE` to secret from your project in [Developer Console](https://console.developers.google.com)
-* Set client id in `app/config/default.json`
+* Set secret as env `AUTH_GOOGLE` from [Developer Console](https://console.developers.google.com)
+* Set client id in `app/config/default.json` from [Developer Console](https://console.developers.google.com)
 
 ##Android App
 Nothing so far
