@@ -25,5 +25,5 @@ function addThing(req,res,next) {
 
 module.exports = function (server, authorizer) {
     server.get('/things', authorizer.user, listThings);
-    server.post('things', authorizer.user, addThing);
+    server.post('/things', authorizer.user, addThing);
 };
