@@ -23,9 +23,6 @@
         "licenses": "ISC",
         "repository": "git+https://github.com/es128/anymatch"
     },
-    "application-name@0.0.1": {
-        "licenses": "UNKNOWN"
-    },
     "argparse@1.0.7": {
         "licenses": "MIT",
         "repository": "git+https://github.com/nodeca/argparse"
@@ -1400,6 +1397,10 @@
     "restify@4.1.1": {
         "licenses": "MIT",
         "repository": "https://github.com/restify/node-restify"
+    },
+    "richardwiden-rest-service@0.0.1": {
+        "licenses": "MIT",
+        "repository": "github:richardwiden/rest-service"
     },
     "rimraf@2.2.8": {
         "licenses": "MIT",
