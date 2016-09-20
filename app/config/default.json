@@ -1,0 +1,21 @@
+{
+  "app": {
+    "name": "whoami-node-rest",
+    "port": 3000,
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "name": "whoami-node-rest"
+    },
+    "log": {
+      "name":"whoami-node-rest",
+      "level":"info"
+    },
+    "auth":{
+      "google":{
+        "id":"657342550973-ldm8hgg7gum7bjgp5e03j9d79veivd4a.apps.googleusercontent.com"
+      }
+    },
+    "errors": true
+  }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id"
+          content="657342550973-ldm8hgg7gum7bjgp5e03j9d79veivd4a.apps.googleusercontent.com">
+    <title>Login</title>
+</head>
+<body>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<form>
+    <input id="tokenInput" name="token" value="" title="token">
+    <select name="querySelection" id="querySelection" title="query">
+        <option value="GET /things">GET things</option>
+        <option value="POST /things">POST things</option>
+    </select>
+    <textarea name="queryText" cols="40" rows="5" title="query text">{}</textarea>
+    <input type="button" value="Query" onclick="queryClick()">
+</form>
+<textarea name="response" id="response" cols="80" rows="25" title="response">{}</textarea>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--suppress JSUnresolvedFunction -->
+<script>
+    function queryClick() {
+        console.log("queryclick");
+        var token = $("#tokenInput").val();
+        var querySelection = $("#querySelection").val();
+        var query, method, queryText;
+
+        if (querySelection == 'GET /things') {
+            query = '/things';
+            method = 'GET'
+        } else if (querySelection == 'POST /things') {
+            query = '/things';
+            method = 'POST';
+            queryText = $('#queryText').val();
+        }
+        else return;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, query);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        if (token)
+            xhr.setRequestHeader('x-access-token', token);
+        xhr.onload = function () {
+            $("#response").val(xhr.responseText);
+        };
+        if (method == 'GET')
+            xhr.send();
+        else if (method == 'POST')
+            xhr.send(queryText);
+        else
+            console.log("No query method selected");
+
+    }
+    //noinspection JSUnusedLocalSymbols
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+    //noinspection JSUnusedLocalSymbols
+    function onSignIn(googleUser) {
+        var id_token = googleUser.getAuthResponse().id_token;
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/auth/token/google');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log('Signed in as: ' + xhr.responseText);
+            $("#tokenInput").val(id_token);
+        };
+
+        xhr.send(id_token);
+    }
+</script>
+
+</body>
+</html>
