@@ -5,31 +5,32 @@ let restify = require('restify'),
     config = require('./config/config'),
     debug = require('debug')(config.name),
     log = require('./lib/log'),
-    format = require('bunyan-format')({outputMode:'short',levelInString:true}),
+    format = require('bunyan-format')({outputMode: 'short', levelInString: true}),
     server = restify.createServer({
         name: config.name,
         version: '1.0.0',
-        log:log,
+        log: log,
     });
 
-
+let isDeveloping = process.env.NODE_ENV !== 'production';
 let auth = require('./routes/auth');
 
 //server.on('after', restify.auditLogger({body:false,log: log.child({level:'info',request:'audit',stream:format})}));
-server.pre(function (req, res, next) {
-    req.log.info({ url: req.url }, req.method);
-    next();
-});
+if (isDeveloping)
+    server.pre(function (req, res, next) {
+        req.log.info({url: req.url}, req.method);
+        next();
+    });
 server.pre(auth.verifyAndAppendUser);
 server.use(restify.requestLogger());
 server.use(restify.bodyParser());
 server.use();
 
-auth.setupRoutes(server,auth.authorizer);
-let routes = require('./routes/')(server,auth.authorizer);
+auth.setupRoutes(server, auth.authorizer);
+let routes = require('./routes/')(server, auth.authorizer);
 
-mongoose.connect(config.db.uri, function (err,info) {
-    if(err) return log.error(err);
+mongoose.connect(config.db.uri, function (err, info) {
+    if (err) return log.error(err);
     log.info(info);
     server.listen(config.port, function (err) {
         if (err) return debug(err);
