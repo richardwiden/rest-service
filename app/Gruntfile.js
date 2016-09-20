@@ -30,10 +30,18 @@ module.exports = function(grunt) {
                 }
             }
         },
+        license: {
+            options: {
+            },
+            your_target: {
+                // Target-specific file lists and/or options go here.
+            },
+        },
     });
 
     grunt.loadNpmTasks("grunt-nodemon");
     grunt.loadNpmTasks("grunt-concurrent");
+    grunt.loadNpmTasks('grunt-license');
 
     grunt.registerTask("run", ["concurrent:dev"]);
     grunt.registerTask("default", ["concurrent:dev"]);
