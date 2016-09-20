@@ -4,3 +4,5 @@ machine:
 dependencies:
   override:
     - npm install
+general:
+  build_dir: app
