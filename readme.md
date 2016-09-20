@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/richardwiden/rest-service/tree/master.svg?style=svg)](https://circleci.com/gh/richardwiden/rest-service/tree/master)
+
 This is mainly supposed to be starting point for a rest-service and either and android app or similar online webservice
 
 * restify
