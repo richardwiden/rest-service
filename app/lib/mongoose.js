@@ -19,7 +19,7 @@ mongoose.connect = function (uri, options, callback) {
                 process.exit(0);
             });
         });
-        mongoose.connection.on("error", function(err) {
+        mongoose.connection.on("error", function (err) {
             callback(err);
             process.exit(0);
         });
@@ -29,7 +29,7 @@ mongoose.connect = function (uri, options, callback) {
             callback(err);
             process.exit(0);
         });
-        callback(null,'Mongoose connected:' + uri, config.name);
+        callback(null, 'Mongoose connected:' + uri, config.name);
     });
     else
         mongoose.innerConnect(uri, options)

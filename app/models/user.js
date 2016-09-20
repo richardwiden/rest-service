@@ -1,8 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
-var userSchema = new mongoose.Schema({email: String,jsonwebtoken:String});
+var userSchema = new mongoose.Schema({email: String, jsonwebtoken: String});
 userSchema.statics.findJwtUserByEmail = function (email, cb) {
-    User.findOne({email: email}, {email: 1},cb);
+    User.findOne({email: email}, {email: 1}, cb);
 };
 
 

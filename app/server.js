@@ -13,18 +13,19 @@ var restify = require('restify'),
     });
 
 
-
+var auth = require('./routes/auth');
 
 //server.on('after', restify.auditLogger({body:false,log: log.child({level:'info',request:'audit',stream:format})}));
 server.pre(function (req, res, next) {
     req.log.info({ url: req.url }, req.method);
     next();
 });
+server.pre(auth.verifyAndAppendUser);
 server.use(restify.requestLogger());
 server.use(restify.bodyParser());
 server.use();
-var auth = require('./routes/auth');
-server.use(auth.verifyAndAppendUser);
+
+
 auth.setupRoutes(server);
 var routes = require('./routes/')(server);
 

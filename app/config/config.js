@@ -23,6 +23,6 @@ if (config.has('app.auth.google.id')) {
 }
 
 if (!process.env.AUTH_JWT) throw "Missing AUTH_JWT secret";
-appConf.auth.jwt =process.env.AUTH_JWT;
+appConf.auth.jwt = process.env.AUTH_JWT;
 
 module.exports = appConf;

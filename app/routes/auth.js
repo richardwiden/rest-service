@@ -12,7 +12,8 @@ var logAndNext = function (err, message, req, res, next) {
     next();
 };
 function verifyAndAppendUser(req, res, next) {
-    var token = req.getHeader('x-access-token');
+    if (!req || !req.headers || !req.headers['x-access-token']) return next();
+    var token = req.headers['x-access-token'];
     if (!token) return next(); // No token sent by user
     verifier.verify(token, config.auth.google.id, function (err, tokenInfo) {
         if (err) return logAndNext(err, 'token verify failed', req, res, next);
@@ -21,7 +22,7 @@ function verifyAndAppendUser(req, res, next) {
             req.user = user;
             next();
         })
-    })
+    });
 }
 
 function setupRoutes(server) {
@@ -86,5 +87,5 @@ function setupRoutes(server) {
 
 module.exports = {
     setupRoutes: setupRoutes,
-    verifyAndAppendUser:verifyAndAppendUser
+    verifyAndAppendUser: verifyAndAppendUser
 };
