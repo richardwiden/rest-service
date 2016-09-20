@@ -16,10 +16,10 @@
     "restify-errors": "^4.3.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-license": "^0.1.5",
     "grunt-nodemon": "^0.4.2"
   },
   "licenses": [
