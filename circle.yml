@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 6.0.0
+dependencies:
+  cache_directories:
+    - node_modules
+  override:
+    - npm install
+general:
+  build_dir: app

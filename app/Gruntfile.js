@@ -5,7 +5,18 @@
 module.exports = function(grunt) {
     //noinspection JSUnusedGlobalSymbols
     grunt.initConfig({
-
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec',
+                    captureFile: 'results.txt', // Optionally capture the reporter output to a file
+                    quiet: false, // Optionally suppress output to standard out (defaults to false)
+                    clearRequireCache: true, // Optionally clear the require cache before running tests (defaults to false)
+                    noFail: false // Optionally set to not fail on failed tests (will still fail on other errors)
+                },
+                src: ['tests/**/*.js']
+            }
+        },
         concurrent: {
             dev: ["nodemon"],
             options: {
@@ -27,22 +38,28 @@ module.exports = function(grunt) {
                             console.log(event.colour);
                         });
                     }
+
                 }
             }
         },
-        license: {
-            options: {
-            },
-            your_target: {
-                // Target-specific file lists and/or options go here.
+
+        watch: {
+            scripts: {
+                files: ["server.js","routes/*.js","config/*.js","lib/*.js","tests/**/*.js"],
+                tasks: ["mochaTest:test"],
+                options: {
+                    spawn: false,
+                },
             },
         },
     });
 
     grunt.loadNpmTasks("grunt-nodemon");
     grunt.loadNpmTasks("grunt-concurrent");
-    grunt.loadNpmTasks('grunt-license');
+    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask("run", ["concurrent:dev"]);
-    grunt.registerTask("default", ["concurrent:dev"]);
+    grunt.registerTask("default", ["mochaTest","watch"]);
+    grunt.registerTask('test', ['mochaTest']);
 };
