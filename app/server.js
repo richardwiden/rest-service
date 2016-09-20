@@ -24,9 +24,8 @@ if (isDeveloping)
 server.pre(auth.verifyAndAppendUser);
 server.use(restify.requestLogger());
 server.use(restify.bodyParser());
-server.use();
-
 auth.setupRoutes(server, auth.authorizer);
+
 let routes = require('./routes/')(server, auth.authorizer);
 
 mongoose.connect(config.db.uri, function (err, info) {
