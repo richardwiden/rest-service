@@ -1,5 +1,5 @@
 'use strict';
-var fs = require('fs');
+let fs = require('fs');
 
 module.exports = function (server, authorize) {
     fs.readdirSync('./routes').forEach(function (file) {

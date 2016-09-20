@@ -1,8 +1,10 @@
 'use strict';
-var config = require('config');
-var appConf = {};
+let config = require('config');
+
+let appConf = {};
 appConf.name = config.get('app.name');
 appConf.port = config.get('app.port');
+appConf.admin = config.get('app.admin');
 
 appConf.db = {};
 appConf.db.host = config.get('app.db.host');

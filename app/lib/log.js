@@ -1,11 +1,11 @@
 'use strict';
 
-var bunyan = require('bunyan'),
+let bunyan = require('bunyan'),
     format = require('bunyan-format')({outputMode: 'short', levelInString: true}),
     config = require('../config/config');
 
 //noinspection JSCheckFunctionSignatures
-var log = bunyan.createLogger({
+let log = bunyan.createLogger({
     name: config.log.name,
     level: config.log.level,
     stream: format

@@ -1,6 +1,6 @@
 'use strict';
 
-var restify = require('restify'),
+let restify = require('restify'),
     mongoose = require('./lib/mongoose'),
     config = require('./config/config'),
     debug = require('debug')(config.name),
@@ -13,7 +13,7 @@ var restify = require('restify'),
     });
 
 
-var auth = require('./routes/auth');
+let auth = require('./routes/auth');
 
 //server.on('after', restify.auditLogger({body:false,log: log.child({level:'info',request:'audit',stream:format})}));
 server.pre(function (req, res, next) {
@@ -25,10 +25,8 @@ server.use(restify.requestLogger());
 server.use(restify.bodyParser());
 server.use();
 
-
-auth.setupRoutes(server);
-var routes = require('./routes/')(server);
-
+auth.setupRoutes(server,auth.authorizer);
+let routes = require('./routes/')(server,auth.authorizer);
 
 mongoose.connect(config.db.uri, function (err,info) {
     if(err) return log.error(err);

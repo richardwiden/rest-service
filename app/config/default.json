@@ -2,6 +2,8 @@
   "app": {
     "name": "whoami-node-rest",
     "port": 3000,
+    "errors": true,
+    "admin": "richardwiden@gmail.com",
     "db": {
       "host": "localhost",
       "port": 27017,
@@ -15,7 +17,6 @@
       "google": {
         "id": "657342550973-ldm8hgg7gum7bjgp5e03j9d79veivd4a.apps.googleusercontent.com"
       }
-    },
-    "errors": true
+    }
   }
 }
