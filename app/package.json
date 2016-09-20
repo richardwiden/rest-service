@@ -32,7 +32,7 @@
       "url": "https://github.com/richardwiden/rest-service/blob/master/LICENSE.md"
     }
   ],
-  "repository": "github:richardwiden/rest-service"
+  "repository": "github:richardwiden/rest-service",
   "scripts": {
     "test":"grunt test"
   }
