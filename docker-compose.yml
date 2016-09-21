@@ -1,22 +1,21 @@
-version: '2'
-services:
-  mongodata:
-    image: mongo:latest
-    volumes:
-      - /data/db
-    command: --break-mongo
-  mongo:
-    image: mongo:latest
-    volumes_from:
-      - mongodata
-    command: --port 27018 --smallfiles --rest
-  web:
-    environment:
-      - AUTH_GOOGLE
-      - DB_HOST=mongo
-      - DB_PORT=27018
-    links:
-      - mongo
-    build: .
-    ports:
-      - 3000:3000
+
+mongodata:
+  image: mongo:latest
+  volumes:
+    - /data/db
+  command: --break-mongo
+mongo:
+  image: mongo:latest
+  volumes_from:
+    - mongodata
+  command: --port 27018 --smallfiles --rest
+web:
+  environment:
+    - AUTH_GOOGLE
+    - DB_HOST=mongo
+    - DB_PORT=27018
+  links:
+    - mongo
+  build: .
+  ports:
+    - 3000:3000
