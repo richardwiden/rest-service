@@ -1,9 +1,10 @@
 'use strict';
 
-let mongoose = require('mongoose'),
-    config = require('../config/config'),
-    debug = require('debug')(config.name);
-
+let mongoose = require('mongoose')
+    , config = require('../config/config')
+    , bluebird = require('bluebird')
+    , debug = require('debug')(config.name);
+mongoose.Promise = bluebird;
 mongoose.innerConnect = mongoose.connect;
 mongoose.connect = function (uri, options, callback) {
     if (callback == null && options && typeof options === typeof (Function)) {
