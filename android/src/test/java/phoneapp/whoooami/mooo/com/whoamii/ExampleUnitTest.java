@@ -1,4 +1,4 @@
-package phoneapp.whoooami.mooo.com.whoamii;
+package java.phoneapp.whoooami.mooo.com.whoamii;
 
 import org.junit.Test;
 
