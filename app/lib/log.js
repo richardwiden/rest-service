@@ -1,8 +1,8 @@
 'use strict';
 
-let bunyan = require('bunyan'),
-    format = require('bunyan-format')({outputMode: 'short', levelInString: true}),
-    config = require('../config/config');
+let bunyan = require('bunyan')
+    , format = require('bunyan-format')({outputMode: 'short', levelInString: true})
+    , config = require('../config/config');
 
 //noinspection JSCheckFunctionSignatures
 let log = bunyan.createLogger({
@@ -11,9 +11,7 @@ let log = bunyan.createLogger({
     stream: format
 });
 
-
 //yak-shaving for intellij. Must be a better way to do this?
-
 //noinspection SillyAssignmentJS
 log.trace = log.trace; //noinspection SillyAssignmentJS
 log.debug = log.debug; //noinspection SillyAssignmentJS

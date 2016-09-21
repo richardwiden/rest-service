@@ -1,7 +1,7 @@
 'use strict';
-let mongoose = require('mongoose'),
-    config = require('../config/config'),
-    userSchema = new mongoose.Schema({email: String, jsonwebtoken: String});
+let mongoose = require('mongoose')
+    , config = require('../config/config')
+    , userSchema = new mongoose.Schema({email: String, jsonwebtoken: String});
 
 userSchema.statics.findJwtUserByEmail = function (email, cb) {
     User.findOne({email: email}, {email: 1}, cb);
@@ -11,7 +11,7 @@ userSchema.statics.createUser = function (email, cb) {
     let admin = false;
     if (email === config.admin) admin = true;
 
-    User.create({email: email, admin: admin},cb);
+    User.create({email: email, admin: admin}, cb);
 };
 
 let User = mongoose.model("User", userSchema);

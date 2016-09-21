@@ -1,11 +1,11 @@
 'use strict';
 
-let User = require('../models/user'),
-    restify = require('restify'),
-    fs = require('fs'),
-    errors = require('../lib/errors'),
-    config = require('../config/config'),
-    verifier = require('google-id-token-verifier');
+let User = require('../models/user')
+    , restify = require('restify')
+    , fs = require('fs')
+    , errors = require('../lib/errors')
+    , config = require('../config/config')
+    , verifier = require('google-id-token-verifier');
 
 let logAndNext = function (err, message, req, res, next) {
     req.log.error(err, message);
