@@ -9,8 +9,6 @@
     "config": "^1.21.0",
     "debug": "^2.2.0",
     "google-id-token-verifier": "^0.2.3",
-    "googleapis": "^13.0.0",
-    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
     "node-rest-client": "^2.0.1",
     "restify": "^4.1.1",
@@ -34,6 +32,7 @@
   ],
   "repository": "github:richardwiden/rest-service",
   "scripts": {
-    "test":"grunt test"
+    "test":"grunt test",
+    "start": "nodemon server.js"
   }
 }
