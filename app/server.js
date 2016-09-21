@@ -1,16 +1,16 @@
 'use strict';
 
-let restify = require('restify'),
-    mongoose = require('./lib/mongoose'),
-    config = require('./config/config'),
-    debug = require('debug')(config.name),
-    log = require('./lib/log'),
-    format = require('bunyan-format')({outputMode: 'short', levelInString: true}),
-    server = restify.createServer({
-        name: config.name,
-        version: '1.0.0',
-        log: log,
-    });
+let restify = require('restify')
+    , mongoose = require('./lib/mongoose')
+    , config = require('./config/config')
+    , debug = require('debug')(config.name)
+    , log = require('./lib/log')
+    , format = require('bunyan-format')({outputMode: 'short', levelInString: true})
+    , server = restify.createServer({
+    name: config.name,
+    version: '1.0.0',
+    log: log,
+});
 
 let isDeveloping = process.env.NODE_ENV !== 'production';
 let auth = require('./routes/auth');

@@ -1,8 +1,9 @@
 'use strict';
 
-let mongoose = require('mongoose'),
-    config = require('../config/config'),
-    debug = require('debug')(config.name);
+let mongoose = require('mongoose')
+    , config = require('../config/config')
+    , debug = require('debug')(config.name);
+mongoose.Promise = require('bluebird');
 
 mongoose.innerConnect = mongoose.connect;
 mongoose.connect = function (uri, options, callback) {
