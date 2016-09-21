@@ -1,4 +1,5 @@
 FROM node:latest
+RUN rm -Rf /usr/src/app
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 COPY app /usr/src/app
