@@ -1,12 +1,23 @@
-mongodata:  
+
+mongodata:
   image: mongo:latest
   volumes:
     - /data/db
   command: --break-mongo
-mongo:  
+mongo:
   image: mongo:latest
   volumes_from:
     - mongodata
   ports:
-    - "27017:27017"
-  command: --smallfiles --rest
+    - "27018:27018"
+  command: --port 27018 --smallfiles --rest
+my_app:
+  environment:
+    - AUTH_GOOGLE
+    - DB_HOST=mongo
+    - DB_PORT=27018
+  links:
+    - mongo
+  build: .
+  ports:
+    - 3000:3000

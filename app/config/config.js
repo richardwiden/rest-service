@@ -7,10 +7,10 @@ appConf.port = config.get('app.port');
 appConf.admin = config.get('app.admin');
 
 appConf.db = {};
-appConf.db.host = config.get('app.db.host');
-appConf.db.port = config.get('app.db.port');
-appConf.db.name = config.get('app.db.name');
-appConf.db.uri = 'mongodb://' + appConf.db.host + ':' + appConf.db.port + '/' + appConf.db.name;
+appConf.db.host = process.env.DB_HOST ? process.env.DB_HOST : config.get('app.db.host');
+appConf.db.port = process.env.DB_PORT ? process.env.DB_PORT : config.get('app.db.port');
+appConf.db.name = process.env.DB_NAME ? process.env.DB_NAME : config.get('app.db.name');
+appConf.db.uri = 'mongodb://admin:password@' + appConf.db.host + ':' + appConf.db.port + '/' + appConf.db.name;
 
 appConf.log = {};
 appConf.log.name = config.get('app.log.name');
@@ -23,8 +23,5 @@ if (config.has('app.auth.google.id')) {
     if (!process.env.AUTH_GOOGLE) throw "Missing AUTH_GOOGLE";
     appConf.auth.google.secret = process.env.AUTH_GOOGLE;
 }
-
-if (!process.env.AUTH_JWT) throw "Missing AUTH_JWT secret";
-appConf.auth.jwt = process.env.AUTH_JWT;
 
 module.exports = appConf;

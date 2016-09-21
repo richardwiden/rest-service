@@ -32,6 +32,7 @@
   ],
   "repository": "github:richardwiden/rest-service",
   "scripts": {
-    "test":"grunt test"
+    "test":"grunt test",
+    "start": "nodemon server.js"
   }
 }
