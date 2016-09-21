@@ -35,7 +35,6 @@
   ],
   "repository": "github:richardwiden/rest-service",
   "scripts": {
-    "test": "grunt test",
-    "setup_integration_test": "node tests_integration/index.js"
+    "test": "grunt test && node tests_integration/index.js"
   }
 }
