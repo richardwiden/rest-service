@@ -25,7 +25,7 @@
     "grunt-mocha-test": "^0.13.2",
     "grunt-nodemon": "^0.4.2",
     "mocha": "^3.0.2",
-    "mocha-mongoose": "^1.2.0",
+    "mocha-mongoose": "^1.2.0"
   },
   "licenses": [
     {
