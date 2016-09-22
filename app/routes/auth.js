@@ -5,7 +5,7 @@ let User = require('../models/user')
     , fs = require('fs')
     , errors = require('../lib/errors')
     , config = require('../config/config')
-    , verifier = require('google-id-token-verifier');
+    , firebase = require('firebase');
 
 let logAndNext = function (err, message, req, res, next) {
     req.log.error(err, message);
@@ -23,16 +23,24 @@ let handleForbiddenError = function (err, message, res, next) {
 };
 
 let verifyAndAppendUser = function (req, res, next) {
-    if (!req || !req.headers || !req.headers['x-access-token']) return next();
-    let token = req.headers['x-access-token'];
-    if (!token) return next(); // No token sent by user
-    verifier.verify(token, config.auth.google.id, function (err, tokenInfo) {
-        if (err) return logAndNext(err, 'token verify failed', req, res, next);
-        User.findJwtUserByEmail(tokenInfo.email, function (err, user) {
-            if (err) return logAndNext(err, 'Could not retrieve user', req, res, next);
-            req.user = user;
-            next();
-        })
+    firebase.auth().verifyIdToken(idToken).then(function (decodedToken) {
+        let uid = decodedToken.uid;
+
+        User.findOne({uid: uid}, function (err, user) {
+            if (err) return handleAuthorizationError(err, 'Could not find user');
+            if (user) {
+                req.user = user;
+                return next();
+            }
+            let email = decodedToken.email;
+            User.create({uid: uid, email: email}, function (err, user) {
+                if (err) return handleAuthorizationError(err, 'Could not create user', res, next);
+                req.user = user;
+                next();
+            })
+        });
+    }).catch(function (err) {
+        handleAuthorizationError(err, 'Could not verify token', res, next);
     });
 };
 
@@ -54,44 +62,38 @@ let respondLoginpage = function (req, res, next) {
     });
 };
 
-/**
- * https://developers.google.com/identity/sign-in/web/backend-auth
- * @param req
- * @param res
- * @param next
- */
-let checkGoogleTokenAndAddUserToReq = function (req, res, next) {
-    let signSaveAndRespond = function (err, user) {
-        if (err) return handleAuthorizationError(err, "Could not retrieve from database", res, next);
-        if (user == null) return handleAuthorizationError("UserNotCreated", "Could not retrieve from database", res, next);
-        req.user = user;
-        res.send(user);
-        next();
-    };
-    verifier.verify(req.body, config.auth.google.id, function (err, tokenInfo) {
-        if (err) return handleAuthorizationError(err, "Unable to verify token", res, next);
-        User.findJwtUserByEmail(tokenInfo.email, function (err, user) {
-            if (err) return handleAuthorizationError(err, "Could not find user", req, next);
-            if (user == null) return User.createUser(tokenInfo.email, function (err, user) {
-                if (err)return handleAuthorizationError(err, "Could not create user", req, next);
-                User.findJwtUserByEmail(tokenInfo.email, function (err, user) {
-                    if (err) return handleAuthorizationError(err, "Could not find user after creation", res, next);
-                    signSaveAndRespond(null, user)
-                });
-            });
-            signSaveAndRespond(null, user);
+let respondFile = function (name, type) {
+    let contentType;
+    switch (type) {
+        case 'css':
+            contentType = 'text/css';
+            break;
+        case 'js':
+            contentType = 'application/javascript';
+            break;
+        default:
+            contentType = 'text/plain';
+    }
+    return function (req, res, next) {
+        fs.readFile('views/' + filename + '.' + type, function (err, data) {
+            if (err) return next(err);
+            res.header('Content-Type', contentType);
+            res.end(data);
+            next();
         });
-    });
+    };
 };
 
+
 function setupRoutes(server) {
-    server.get('/', respondLoginpage);
-    server.post('/auth/token/google', checkGoogleTokenAndAddUserToReq);
+    server.get('/', respondFile('index.html'));
+    server.get('/app.js', respondFile('app.js'));
+    server.get('/style.css', respondFile('style.css'));
 }
 
 module.exports = {
     setupRoutes: setupRoutes,
-    verifyAndAppendUser: verifyAndAppendUser,
+    verifyAndAppendUser:verifyAndAppendUser,
     authorizer: {
         user: authorizeUser,
         admin: authorizeAdmin

@@ -10,7 +10,7 @@ appConf.db = {};
 appConf.db.host = process.env.DB_HOST ? process.env.DB_HOST : config.get('app.db.host');
 appConf.db.port = process.env.DB_PORT ? process.env.DB_PORT : config.get('app.db.port');
 appConf.db.name = process.env.DB_NAME ? process.env.DB_NAME : config.get('app.db.name');
-appConf.db.uri = 'mongodb://admin:password@' + appConf.db.host + ':' + appConf.db.port + '/' + appConf.db.name;
+appConf.db.uri = 'mongodb://' + appConf.db.host + ':' + appConf.db.port + '/' + appConf.db.name;
 
 appConf.log = {};
 appConf.log.name = config.get('app.log.name');

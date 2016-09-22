@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "whoami-node-rest",
-    "port": 3000,
+    "port": 3001,
     "errors": true,
     "admin": "richardwiden@gmail.com",
     "db": {

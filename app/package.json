@@ -8,6 +8,7 @@
     "bunyan-format": "^0.2.1",
     "config": "^1.21.0",
     "debug": "^2.2.0",
+    "firebase": "^3.4.0",
     "google-id-token-verifier": "^0.2.3",
     "mongoose": "^4.6.0",
     "node-rest-client": "^2.0.1",
@@ -32,7 +33,7 @@
   ],
   "repository": "github:richardwiden/rest-service",
   "scripts": {
-    "test":"grunt test",
+    "test": "grunt test",
     "start": "nodemon server.js"
   }
 }
